@@ -3,46 +3,39 @@
 [![last commit](https://img.shields.io/github/last-commit/lpeabody/ddev-ai)](https://github.com/lpeabody/ddev-ai/commits)
 [![release](https://img.shields.io/github/v/release/lpeabody/ddev-ai)](https://github.com/lpeabody/ddev-ai/releases/latest)
 
-# DDEV Ai
+# DDEV AI
 
 ## Overview
 
-This add-on integrates Ai into your [DDEV](https://ddev.com/) project.
+This add-on integrates commonly necessary AI services into your [DDEV](https://ddev.com/) project.
+
+- Milvus for Vector Database
 
 ## Installation
 
 ```bash
 ddev add-on get lpeabody/ddev-ai
 ddev restart
+# You may also need to chown the .ddev directory recursively as some services
+# are configured to map data volumes in the DDEV directory.
+# sudo chown -R $USER:$USER .ddev/milvus
 ```
 
 After installation, make sure to commit the `.ddev` directory to version control.
 
 ## Usage
 
-| Command | Description |
-| ------- | ----------- |
-| `ddev describe` | View service status and used ports for Ai |
-| `ddev logs -s ai` | Check Ai logs |
+| Command               | Description                                        |
+|-----------------------|----------------------------------------------------|
+| `ddev describe`       | View service status and used ports for AI services |
+| `ddev logs -s milvus` | Check Milvus logs                                  |
 
-## Advanced Customization
+### Drupal
 
-To change the Docker image:
-
-```bash
-ddev dotenv set .ddev/.env.ai --ai-docker-image="busybox:stable"
-ddev add-on get lpeabody/ddev-ai
-ddev restart
-```
-
-Make sure to commit the `.ddev/.env.ai` file to version control.
-
-All customization options (use with caution):
-
-| Variable | Flag | Default |
-| -------- | ---- | ------- |
-| `AI_DOCKER_IMAGE` | `--ai-docker-image` | `busybox:stable` |
-
-## Credits
+1. `composer require drupal/ai_vdb_provider_milvus`
+2. `drush en ai_vdb_provider_milvus`
+3. Configure the module at `/admin/config/content/ai_vdb_provider_milvus` with the following settings:
+   - Host: `https://milvus`
+   - Port: `19530`
 
 **Contributed and maintained by [@lpeabody](https://github.com/lpeabody)**
