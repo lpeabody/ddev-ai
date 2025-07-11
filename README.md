@@ -34,7 +34,7 @@ After installation, make sure to commit the `.ddev` directory to version control
 
 1. `composer require drupal/ai_vdb_provider_milvus`
 2. `drush en ai_vdb_provider_milvus`
-3. Configure the module at `/admin/config/content/ai_vdb_provider_milvus` with the following settings:
+3. Configure the module at `/admin/config/ai/vdb_providers/milvus` with the following settings:
    - Host: `https://milvus`
    - Port: `19530`
 
