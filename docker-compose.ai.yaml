@@ -1,3 +1,4 @@
+#ddev-generated
 # See https://www.drupal.org/project/ai/issues/3479943#comment-15809663
 services:
   etcd:
