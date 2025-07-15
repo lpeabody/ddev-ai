@@ -42,6 +42,16 @@ you want to use:
 
 - Milvus: `ddev start --profiles='milvus'`
 
+#### Default Profile Set
+
+You can use a default set of profiles by setting `COMPOSE_PROFILES` in `.ddev/.env`, for example:
+
+```bash
+COMPOSE_PROFILES=milvus
+```
+
+After `ddev restart`, the listed profiles in `COMPOSE_PROFILES` will be activated and used.
+
 ### CMS Configuration
 
 #### Drupal
