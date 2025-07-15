@@ -32,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v3.2.0
       - uses: ddev/github-action-add-on-test@v2
         with:
           ddev_version: ${{ matrix.ddev_version }}

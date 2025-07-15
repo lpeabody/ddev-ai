@@ -52,6 +52,12 @@ health_checks() {
   assert_output --partial "FULLURL https://${PROJNAME}.ddev.site"
 }
 
+milvus_health_checks() {
+  run bats_pipe ddev status --json-output \| jq -e '(.raw.services.milvus.status == "running") and (.raw.services.etcd.status == "running") and (.raw.services.attu.status == "running") and (.raw.services.minio.status == "running")'
+  assert_success
+  assert_output --partial "true"
+}
+
 teardown() {
   set -eu -o pipefail
   ddev delete -Oy ${PROJNAME} >/dev/null 2>&1
@@ -83,4 +89,17 @@ teardown() {
   run ddev restart -y
   assert_success
   health_checks
+}
+
+@test "start milvus profile" {
+  set -eu -o pipefail
+  echo "# ddev add-on get ${DIR} with project ${PROJNAME} in $(pwd)" >&3
+  run ddev add-on get "${DIR}"
+  assert_success
+  run ddev restart -y
+  assert_success
+  echo "# start milvus services" >&3
+  run ddev start --profiles=milvus -y
+  assert_success
+  milvus_health_checks
 }

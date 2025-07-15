@@ -30,7 +30,23 @@ After installation, make sure to commit the `.ddev` directory to version control
 | `ddev describe`       | View service status and used ports for AI services |
 | `ddev logs -s milvus` | Check Milvus logs                                  |
 
-### Drupal
+### Profiles
+
+Over time we will likely add support for a variety of AI services. Each unique
+product might require several services to work together, such as Milvus. This
+addon leverages the profiles feature from DDEV 1.24+ in order to group related
+services together. See https://ddev.readthedocs.io/en/stable/users/extend/custom-compose-files/#optional-services.
+
+Most of the time you will need to use the profiles flag to start the services
+you want to use:
+
+- Milvus: `ddev start --profiles='milvus'`
+
+### CMS Configuration
+
+#### Drupal
+
+##### Milvus Vector Database Provider for Drupal AI
 
 1. `composer require drupal/ai_vdb_provider_milvus`
 2. `drush en ai_vdb_provider_milvus`
